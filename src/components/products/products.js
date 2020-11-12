@@ -114,6 +114,22 @@ const AddButton = styled.button`
   }
 `
 
+function handleCardClick(prod) {
+  if (localStorage.getItem("dummies") === null) {
+    const productsArray = []
+    productsArray.push(prod.name)
+    localStorage.dummies = JSON.stringify(productsArray)
+  } else {
+    const newProductsArray = JSON.parse(localStorage.dummies)
+    if (newProductsArray.find(dummy => dummy === prod.name)) {
+      alert("This dummy is already in cart")
+    } else {
+      newProductsArray.push(prod.name)
+      localStorage.dummies = JSON.stringify(newProductsArray)
+    }
+  }
+}
+
 export default function Products() {
   return (
     <Container>
@@ -130,7 +146,7 @@ export default function Products() {
                     <DummyHeader>{product.name}</DummyHeader>
                     <DummyDescription>{product.description}</DummyDescription>
                   </div>
-                  <AddButton>+</AddButton>
+                  <AddButton onClick={() => handleCardClick(product)}>+</AddButton>
                 </DummyCard>
               )
             })
