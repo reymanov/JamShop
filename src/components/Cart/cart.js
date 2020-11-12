@@ -14,6 +14,11 @@ const CartIcon = styled.div`
     color: #fff;
     z-index: 10;
     cursor: pointer;
+    transition: transform .2s ease;
+
+    &:hover{
+        transform: translateY(-5px);
+    }
 `
 
 export default function Cart() {

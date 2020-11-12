@@ -26,23 +26,41 @@ const Container = styled.div`
   font-family: 'Roboto', sans-serif;
   overflow-x: hidden;
   background-color: #14092e;
+
+  @media (max-width: 560px) {
+    padding: 0 5%;
+  }
 `
 const SectionHeading = styled.h2`
   margin-left: 10vw;
-  font-size: 30px;
+  font-size: clamp(20px,4vw,30px);
+  
+  @media (max-width: 560px) {
+    margin-left: 3vw;
+    text-align: center;
+  }
 `
 
 const SectionDescription = styled.h3`
   margin-left: 10vw;
-  font-size: 18px;
+  font-size: clamp(14px,3vw,18px);
   font-weigth: 300;
   color: #e0e0e0;
+
+  @media (max-width: 560px) {
+    margin-left: 3vw;
+    text-align: center;
+  }
 `
 
 const DummyContainer = styled.div`
   width: 90%;
   margin: 20px auto;
-  padding: 20px 0px 20px 50px;
+  padding: 20px 0px ;
+
+  @media (max-width: 560px) {
+    width: 100%
+  }
 `
 
 const DummyCard = styled.div`

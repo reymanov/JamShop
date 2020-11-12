@@ -24,18 +24,36 @@ const HeroBG = styled.img`
 `
 
 const HeroContainer = styled.div`
+  position: relative;
   width: 70%;
   margin: 10vh auto 0;
   display: flex;
   justify-content: space-around;
   align-items: center;
+  z-index: 5;
+
+  @media (max-width: 975px) {
+    width: 90%
+  }
+
+  @media (max-width: 560px) {
+    flex-direction: column;
+    text-align:center;
+    margin: 6vh auto 5vh;
+  }
+
+`
+const Monitor = styled.img`
+  
+  @media (max-width: 975px) {
+    width: 300px;
+  }
 `
 
 const H1 = styled.h1`
   position: relative;
   color: #fff;
-  font-size: 3.2rem;
-  z-index: 5;
+  font-size: clamp(1.6rem,4vw,3.2rem);
   `
 
 const StyledButton = styled.button`
@@ -60,7 +78,7 @@ function HomepageHero() {
     <Hero>
       <HeroContainer>
         <div>
-          <img src={HeroImage} alt="Vector Monitor" />
+          <Monitor src={HeroImage} alt="Vector Monitor" />
         </div>
         <div>
           <H1>

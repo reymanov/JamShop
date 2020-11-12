@@ -9,7 +9,7 @@ const StyledHeader = styled.header`
   heigth: 40px;
   padding: 10px;
   margin: auto;
-  z-index: 1;
+  z-index: 5;
   color: #fff;
   font-family: 'Roboto', sans-serif;
   overflow-x: hidden;
