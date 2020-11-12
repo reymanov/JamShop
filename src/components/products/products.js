@@ -114,17 +114,25 @@ const AddButton = styled.button`
   }
 `
 
-function handleCardClick(prod) {
+function handleAddToCart(prod) {
   if (localStorage.getItem("dummies") === null) {
     const productsArray = []
-    productsArray.push(prod.name)
+    const newProduct = {
+      name: prod.name,
+      price: prod.price,
+    }
+    productsArray.push(newProduct)
     localStorage.dummies = JSON.stringify(productsArray)
   } else {
     const newProductsArray = JSON.parse(localStorage.dummies)
-    if (newProductsArray.find(dummy => dummy === prod.name)) {
+    if (newProductsArray.find(dummy => dummy.name === prod.name)) {
       alert("This dummy is already in cart")
     } else {
-      newProductsArray.push(prod.name)
+      const newProduct = {
+        name: prod.name,
+        price: prod.price,
+      }
+      newProductsArray.push(newProduct)
       localStorage.dummies = JSON.stringify(newProductsArray)
     }
   }
@@ -146,7 +154,7 @@ export default function Products() {
                     <DummyHeader>{product.name}</DummyHeader>
                     <DummyDescription>{product.description}</DummyDescription>
                   </div>
-                  <AddButton onClick={() => handleCardClick(product)}>+</AddButton>
+                  <AddButton onClick={() => handleAddToCart(product)}>+</AddButton>
                 </DummyCard>
               )
             })
