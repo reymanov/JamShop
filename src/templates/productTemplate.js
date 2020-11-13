@@ -82,9 +82,9 @@ const TextContainer = styled.div`
 `
 
 export default function productTemplate({
-  data, // this prop will be injected by the GraphQL query below.
+  data,
 }) {
-  const { markdownRemark } = data // data.markdownRemark holds your post data
+  const { markdownRemark } = data
   const { frontmatter, html } = markdownRemark
   return (
     <>

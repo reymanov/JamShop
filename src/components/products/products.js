@@ -5,6 +5,7 @@ import { productList } from "./productList"
 import DummySVG from "./dumy.svg"
 import Carousel from "react-elastic-carousel"
 import Cart from "../Cart/cart"
+import { graphql, useStaticQuery } from "gatsby"
 
 const breakpoints = [
   { width: 1, itemsToShow: 1 },
@@ -82,7 +83,7 @@ const DummyCard = styled.div`
   }
 `
 
-const Link = styled.a`
+const StyledA = styled.a`
   position: absolute;
   box-sizing: border-box;
   left:0;
@@ -156,6 +157,28 @@ export default function Products() {
     }
   }
 
+  const data = useStaticQuery(
+    graphql`
+  {
+    allMarkdownRemark {
+      edges {
+        node {
+          frontmatter {
+            image
+            name
+            price
+            slug
+            excerpt
+          }
+        }
+      }
+    }
+  }
+  `,
+  )
+
+  const dummies = data.allMarkdownRemark.edges
+
   return (
     <>
       <Cart />
@@ -165,17 +188,20 @@ export default function Products() {
         <DummyContainer>
           <Carousel breakPoints={breakpoints} pagination={false}>
             {
-              productList.map((product) => {
+              dummies.map((item) => {
                 return (
-                  <DummyCard key={product.slug}>
-                    <Link href={`/${product.slug}`}>
+                  <DummyCard key={item.node.frontmatter.name}>
+                    {/* /had to use "a href" instead of Link,
+                     because gatsby have problem with styled-components,
+                      and constantly rerenders site :( */}
+                    <StyledA href={`${item.node.frontmatter.slug}`}>
                       <img src={DummySVG} />
                       <div>
-                        <DummyHeader>{product.name}</DummyHeader>
-                        <DummyDescription>{product.description}</DummyDescription>
+                        <DummyHeader>{item.node.frontmatter.name}</DummyHeader>
+                        <DummyDescription>{item.node.frontmatter.excerpt}</DummyDescription>
                       </div>
-                    </Link>
-                    <AddButton onClick={() => handleAddToCart(product)}>+</AddButton>
+                    </StyledA>
+                    <AddButton onClick={() => handleAddToCart(item.node.frontmatter)}>+</AddButton>
                   </DummyCard>
                 )
               })
