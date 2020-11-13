@@ -1,6 +1,6 @@
 ---
 name: Wooden Dummy
-slug: wooden-dummy
+slug: "/wooden-dummy"
 price: 104.99
 excerpt: Something that you trully need, but haven’t know about it yet
 image: images/products/dummy.svg

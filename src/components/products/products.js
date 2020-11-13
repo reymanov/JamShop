@@ -1,5 +1,6 @@
 import React from "react"
 import styled from "styled-components"
+import { Link } from "gatsby"
 import "./products.css"
 import { productList } from "./productList"
 import DummySVG from "./dumy.svg"
@@ -159,7 +160,7 @@ export default function Products() {
                       <DummyHeader>{product.name}</DummyHeader>
                       <DummyDescription>{product.description}</DummyDescription>
                     </div>
-                    <AddButton onClick={() => handleAddToCart(product)}>+</AddButton>
+                    <Link><AddButton onClick={() => handleAddToCart(product)}>+</AddButton></Link>
                   </DummyCard>
                 )
               })

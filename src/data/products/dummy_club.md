@@ -1,6 +1,6 @@
 ---
 name: Dummy Club
-slug: dummy-club
+slug: "/dummy-club"
 price: 79.99
 excerpt: Something that you trully need, but haven’t know about it yet
 image: images/products/dummy.svg
