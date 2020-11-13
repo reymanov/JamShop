@@ -1,6 +1,5 @@
 import React from "react"
 import styled from "styled-components"
-import { Link } from "gatsby"
 import "./products.css"
 import { productList } from "./productList"
 import DummySVG from "./dumy.svg"
@@ -83,9 +82,23 @@ const DummyCard = styled.div`
   }
 `
 
+const Link = styled.a`
+  position: absolute;
+  box-sizing: border-box;
+  left:0;
+  top:0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  padding: 15px;
+  flex-direction: column;
+  text-decoration: none;
+`
+
 const DummyHeader = styled.h2`
   margin-left: 5px;
   font-size: 24px;
+  color: #fff
 `
 
 const DummyDescription = styled.p`
@@ -155,12 +168,14 @@ export default function Products() {
               productList.map((product) => {
                 return (
                   <DummyCard key={product.slug}>
-                    <img src={DummySVG} />
-                    <div>
-                      <DummyHeader>{product.name}</DummyHeader>
-                      <DummyDescription>{product.description}</DummyDescription>
-                    </div>
-                    <Link><AddButton onClick={() => handleAddToCart(product)}>+</AddButton></Link>
+                    <Link href={`/${product.slug}`}>
+                      <img src={DummySVG} />
+                      <div>
+                        <DummyHeader>{product.name}</DummyHeader>
+                        <DummyDescription>{product.description}</DummyDescription>
+                      </div>
+                    </Link>
+                    <AddButton onClick={() => handleAddToCart(product)}>+</AddButton>
                   </DummyCard>
                 )
               })
