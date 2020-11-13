@@ -4,6 +4,7 @@ import "./products.css"
 import { productList } from "./productList"
 import DummySVG from "./dumy.svg"
 import Carousel from "react-elastic-carousel"
+import Cart from "../Cart/cart"
 
 const breakpoints = [
   { width: 1, itemsToShow: 1 },
@@ -114,53 +115,58 @@ const AddButton = styled.button`
   }
 `
 
-function handleAddToCart(prod) {
-  if (localStorage.getItem("dummies") === null) {
-    const productsArray = []
-    const newProduct = {
-      name: prod.name,
-      price: prod.price,
-    }
-    productsArray.push(newProduct)
-    localStorage.dummies = JSON.stringify(productsArray)
-  } else {
-    const newProductsArray = JSON.parse(localStorage.dummies)
-    if (newProductsArray.find(dummy => dummy.name === prod.name)) {
-      alert("This dummy is already in cart")
-    } else {
+export default function Products() {
+  // const [cartCount, setCartCount] = React.useState(0)
+
+  function handleAddToCart(prod) {
+    if (localStorage.getItem("dummies") === null) {
+      const productsArray = []
       const newProduct = {
         name: prod.name,
         price: prod.price,
       }
-      newProductsArray.push(newProduct)
-      localStorage.dummies = JSON.stringify(newProductsArray)
+      productsArray.push(newProduct)
+      localStorage.dummies = JSON.stringify(productsArray)
+    } else {
+      const newProductsArray = JSON.parse(localStorage.dummies)
+      if (newProductsArray.find(dummy => dummy.name === prod.name)) {
+        alert("This dummy is already in cart")
+      } else {
+        const newProduct = {
+          name: prod.name,
+          price: prod.price,
+        }
+        newProductsArray.push(newProduct)
+        localStorage.dummies = JSON.stringify(newProductsArray)
+      }
     }
   }
-}
 
-export default function Products() {
   return (
-    <Container>
-      <SectionHeading>Explore community choices</SectionHeading>
-      <SectionDescription>Updated daily based on most popular choices <br />among dev community</SectionDescription>
-      <DummyContainer>
-        <Carousel breakPoints={breakpoints} pagination={false}>
-          {
-            productList.map((product) => {
-              return (
-                <DummyCard key={product.slug}>
-                  <img src={DummySVG} />
-                  <div>
-                    <DummyHeader>{product.name}</DummyHeader>
-                    <DummyDescription>{product.description}</DummyDescription>
-                  </div>
-                  <AddButton onClick={() => handleAddToCart(product)}>+</AddButton>
-                </DummyCard>
-              )
-            })
-          }
-        </Carousel>
-      </DummyContainer>
-    </Container>
+    <>
+      <Cart />
+      <Container>
+        <SectionHeading>Explore community choices</SectionHeading>
+        <SectionDescription>Updated daily based on most popular choices <br />among dev community</SectionDescription>
+        <DummyContainer>
+          <Carousel breakPoints={breakpoints} pagination={false}>
+            {
+              productList.map((product) => {
+                return (
+                  <DummyCard key={product.slug}>
+                    <img src={DummySVG} />
+                    <div>
+                      <DummyHeader>{product.name}</DummyHeader>
+                      <DummyDescription>{product.description}</DummyDescription>
+                    </div>
+                    <AddButton onClick={() => handleAddToCart(product)}>+</AddButton>
+                  </DummyCard>
+                )
+              })
+            }
+          </Carousel>
+        </DummyContainer>
+      </Container>
+    </>
   )
 }

@@ -60,6 +60,22 @@ const CartItem = styled.div`
     text-align: left;
 `
 
+const CartCounter = styled.span`
+    box-sizing: border-box;
+    position: absolute;
+    top: -7px;
+    right: -7px;
+    width: 20px;
+    height: 20px;
+    border-radius: 8px;
+    background-color: #2d1761;
+    font-size: 15px;
+    font-weight: 600;
+    text-align: center;
+    color: #fff;
+    padding: 2px;
+`
+
 export default function Cart() {
   const classes = useStyles()
   const [open, setOpen] = React.useState(false)
@@ -82,6 +98,7 @@ export default function Cart() {
       <div className={classes.root}>
         <CartIcon type="button" onClick={handleClick}>
           <FaShoppingCart />
+          <CartCounter>0</CartCounter>
         </CartIcon>
         {open ? (
           <CartInside>

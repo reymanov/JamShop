@@ -4,7 +4,7 @@ import Layout from "../layouts"
 import SEO from "../components/SEO"
 import Hero from "../components/Hero"
 import Products from "../components/products/products"
-import Cart from "../components/Cart/cart"
+// import Cart from "../components/Cart/cart"
 
 export default function IndexPage() {
   return (
@@ -12,7 +12,6 @@ export default function IndexPage() {
       <SEO title="Home" />
       <Hero />
       <Products />
-      <Cart />
     </Layout>
   )
 }
