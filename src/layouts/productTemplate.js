@@ -42,6 +42,11 @@ const DummyContainer = styled.div`
     align-items: center;
   }
 `
+const DummyTag = styled.p`
+  font-size: 1.2rem;
+  color: #c29b23;
+  transform: translateY(15px);
+`
 
 const DummyName = styled.h1`
   font-size: clamp(2rem,4vw,2.6rem);
@@ -75,7 +80,8 @@ const AddButton = styled.button`
   }
   `
 const TextContainer = styled.div`
-  margin: 20px 30px;
+  box-sizing: border-box;
+  padding: 10px 20px;
   
   @media (max-width: 715px) {
     text-align: center;
@@ -90,29 +96,39 @@ export default function productTemplate({
 
   function handleAddToCart(prod) {
     if (localStorage.getItem("dummies") === null) {
-      const productsArray = []
-      const newProduct = {
-        name: prod.name,
-        price: prod.price,
-      }
-      productsArray.push(newProduct)
-      localStorage.dummies = JSON.stringify(productsArray)
-      setCartChange(!cartChange)
+      addFirstItem(prod)
     } else {
       const newProductsArray = JSON.parse(localStorage.dummies)
       if (newProductsArray.find(dummy => dummy.name === prod.name)) {
         alert("This dummy is already in cart")
       } else {
-        const newProduct = {
-          name: prod.name,
-          price: prod.price,
-        }
-        newProductsArray.push(newProduct)
-        localStorage.dummies = JSON.stringify(newProductsArray)
-        setCartChange(!cartChange)
+        addNextItem(prod)
       }
     }
   }
+
+  function addFirstItem(prod) {
+    const productsArray = []
+    const newProduct = {
+      name: prod.name,
+      price: prod.price,
+    }
+    productsArray.push(newProduct)
+    localStorage.dummies = JSON.stringify(productsArray)
+    setCartChange(!cartChange)
+  }
+
+  function addNextItem(prod) {
+    const newProductsArray = JSON.parse(localStorage.dummies)
+    const newProduct = {
+      name: prod.name,
+      price: prod.price,
+    }
+    newProductsArray.push(newProduct)
+    localStorage.dummies = JSON.stringify(newProductsArray)
+    setCartChange(!cartChange)
+  }
+
   const localData = JSON.parse(localStorage.getItem("dummies")) || {}
 
   const [count, setCount] = useState(null)
@@ -131,6 +147,7 @@ export default function productTemplate({
         <DummyContainer>
           <SVGimg src={DummySVG} />
           <TextContainer>
+            <DummyTag>{frontmatter.tag}</DummyTag>
             <DummyName>{frontmatter.name}</DummyName>
             <DummyExcerpt>{frontmatter.excerpt}</DummyExcerpt>
             <DummyPrice>$ {frontmatter.price}</DummyPrice>
@@ -153,6 +170,7 @@ export const pageQuery = graphql`
         excerpt
         image
         price
+        tag
       }
     }
   }

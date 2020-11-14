@@ -2,7 +2,7 @@ import React from "react"
 
 import Layout from "../layouts"
 import SEO from "../components/SEO"
-import Hero from "../components/Hero"
+import Hero from "../components/Hero/hero"
 import Products from "../components/products/products"
 
 export default function IndexPage() {

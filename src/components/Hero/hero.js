@@ -50,7 +50,7 @@ const Monitor = styled.img`
   }
 `
 
-const H1 = styled.h1`
+const StyledHeading = styled.h1`
   position: relative;
   color: #fff;
   font-size: clamp(1.6rem,4vw,3.2rem);
@@ -81,11 +81,7 @@ function HomepageHero() {
           <Monitor src={HeroImage} alt="Vector Monitor" />
         </div>
         <div>
-          <H1>
-            Don't waste time
-            <br />
-            on boring things
-          </H1>
+          <StyledHeading>Don't waste time <br />on boring things</StyledHeading>
           <StyledButton>GO EXPLORE</StyledButton>
         </div>
       </HeroContainer>

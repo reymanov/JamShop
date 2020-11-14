@@ -133,29 +133,39 @@ const AddButton = styled.button`
 export default function Products() {
   function handleAddToCart(prod) {
     if (localStorage.getItem("dummies") === null) {
-      const productsArray = []
-      const newProduct = {
-        name: prod.name,
-        price: prod.price,
-      }
-      productsArray.push(newProduct)
-      localStorage.dummies = JSON.stringify(productsArray)
-      setCartChange(!cartChange)
+      addFirstItem(prod)
     } else {
       const newProductsArray = JSON.parse(localStorage.dummies)
       if (newProductsArray.find(dummy => dummy.name === prod.name)) {
         alert("This dummy is already in cart")
       } else {
-        const newProduct = {
-          name: prod.name,
-          price: prod.price,
-        }
-        newProductsArray.push(newProduct)
-        localStorage.dummies = JSON.stringify(newProductsArray)
-        setCartChange(!cartChange)
+        addNextItem(prod)
       }
     }
   }
+
+  function addFirstItem(prod) {
+    const productsArray = []
+    const newProduct = {
+      name: prod.name,
+      price: prod.price,
+    }
+    productsArray.push(newProduct)
+    localStorage.dummies = JSON.stringify(productsArray)
+    setCartChange(!cartChange)
+  }
+
+  function addNextItem(prod) {
+    const newProductsArray = JSON.parse(localStorage.dummies)
+    const newProduct = {
+      name: prod.name,
+      price: prod.price,
+    }
+    newProductsArray.push(newProduct)
+    localStorage.dummies = JSON.stringify(newProductsArray)
+    setCartChange(!cartChange)
+  }
+
   const localData = JSON.parse(localStorage.getItem("dummies")) || {}
 
   const [count, setCount] = useState(null)
