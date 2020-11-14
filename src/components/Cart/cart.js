@@ -1,4 +1,3 @@
-/* eslint-disable indent */
 import React from "react"
 import styled from "styled-components"
 import { makeStyles } from "@material-ui/core/styles"
@@ -8,14 +7,14 @@ import DummySVG from "../products/dumy.svg"
 import { FaShoppingCart } from "react-icons/fa"
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-      position: "absolute",
-      top: "20px",
-      right: "60px",
-      width: "35px",
-      height: "35px",
-    },
-  }))
+  root: {
+    position: "absolute",
+    top: "20px",
+    right: "60px",
+    width: "35px",
+    height: "35px",
+  },
+}))
 
 const CartIcon = styled.div`
     position: absolute;
@@ -76,7 +75,7 @@ const CartCounter = styled.span`
     padding: 2px;
 `
 
-export default function Cart() {
+export default function Cart({ count }) {
   const classes = useStyles()
   const [open, setOpen] = React.useState(false)
 
@@ -98,19 +97,19 @@ export default function Cart() {
       <div className={classes.root}>
         <CartIcon type="button" onClick={handleClick}>
           <FaShoppingCart />
-          <CartCounter>0</CartCounter>
+          {count ? <CartCounter>{count}</CartCounter> : null}
         </CartIcon>
         {open ? (
           <CartInside>
             {JSON.parse(localStorage.dummies) ? JSON.parse(localStorage.dummies).map((product) => {
-                  return (
-                    <CartItem key={product}>
-                      <img src={DummySVG} style={{ width: "35px" }} />
-                      <h4>{product.name}</h4>
-                      <p>{product.price}</p>
-                    </CartItem>
-                  )
-              }) : null}
+              return (
+                <CartItem key={product}>
+                  <img src={DummySVG} style={{ width: "35px" }} />
+                  <h4>{product.name}</h4>
+                  <p>{product.price}</p>
+                </CartItem>
+              )
+            }) : null}
           </CartInside>
         ) : null}
       </div>

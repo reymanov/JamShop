@@ -19,7 +19,7 @@ export default function Header() {
   return (
     <StyledHeader>
       <div>
-        <Link to="/" style={{ color: "#fff", textDecoration: "none", fontSize: "1.2rem", fontWeight: "500" }}>JAM SHOP</Link>
+        <Link to="/" style={{ color: "#fff", textDecoration: "none", fontSize: "1.4rem", fontWeight: "500" }}>JAM SHOP</Link>
       </div>
     </StyledHeader>
   )

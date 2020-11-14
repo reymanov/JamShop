@@ -1,11 +1,10 @@
-import React from "react"
+import React, { useState } from "react"
 import styled from "styled-components"
 import "./products.css"
-import { productList } from "./productList"
+import Cart from "../Cart/cart"
 import DummySVG from "./dumy.svg"
 import Carousel from "react-elastic-carousel"
-import Cart from "../Cart/cart"
-import { graphql, useStaticQuery } from "gatsby"
+import { graphql, useStaticQuery, Link } from "gatsby"
 
 const breakpoints = [
   { width: 1, itemsToShow: 1 },
@@ -83,7 +82,7 @@ const DummyCard = styled.div`
   }
 `
 
-const StyledA = styled.a`
+const StyledLink = styled(Link)`
   position: absolute;
   box-sizing: border-box;
   left:0;
@@ -131,8 +130,6 @@ const AddButton = styled.button`
 `
 
 export default function Products() {
-  // const [cartCount, setCartCount] = React.useState(0)
-
   function handleAddToCart(prod) {
     if (localStorage.getItem("dummies") === null) {
       const productsArray = []
@@ -142,6 +139,7 @@ export default function Products() {
       }
       productsArray.push(newProduct)
       localStorage.dummies = JSON.stringify(productsArray)
+      setCount(1)
     } else {
       const newProductsArray = JSON.parse(localStorage.dummies)
       if (newProductsArray.find(dummy => dummy.name === prod.name)) {
@@ -153,9 +151,12 @@ export default function Products() {
         }
         newProductsArray.push(newProduct)
         localStorage.dummies = JSON.stringify(newProductsArray)
+        setCount(count + 1)
       }
     }
   }
+
+  const [count, setCount] = useState(null)
 
   const data = useStaticQuery(
     graphql`
@@ -176,12 +177,11 @@ export default function Products() {
   }
   `,
   )
-
   const dummies = data.allMarkdownRemark.edges
 
   return (
     <>
-      <Cart />
+      <Cart count={count} />
       <Container>
         <SectionHeading>Explore community choices</SectionHeading>
         <SectionDescription>Updated daily based on most popular choices <br />among dev community</SectionDescription>
@@ -191,16 +191,13 @@ export default function Products() {
               dummies.map((item) => {
                 return (
                   <DummyCard key={item.node.frontmatter.name}>
-                    {/* /had to use "a href" instead of Link,
-                     because gatsby have problem with styled-components,
-                      and constantly rerenders site :( */}
-                    <StyledA href={`${item.node.frontmatter.slug}`}>
+                    <StyledLink to={`${item.node.frontmatter.slug}`}>
                       <img src={DummySVG} />
                       <div>
                         <DummyHeader>{item.node.frontmatter.name}</DummyHeader>
                         <DummyDescription>{item.node.frontmatter.excerpt}</DummyDescription>
                       </div>
-                    </StyledA>
+                    </StyledLink>
                     <AddButton onClick={() => handleAddToCart(item.node.frontmatter)}>+</AddButton>
                   </DummyCard>
                 )
