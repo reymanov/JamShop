@@ -41,12 +41,12 @@ const CartIcon = styled.div`
 const CartInside = styled.div`
     box-sizing: border-box;
     position: absolute;
-    top: 65px;
+    top: 70px;
     right: 20px;
     z-index: 10;
-    width: 300px;
-    min-height: 80px;
-    padding: 20px 20px;
+    width: 310px;
+    min-height: 120px;
+    padding: 10px;
     background-color: #2d1761;
     border-radius: 10px;
     color: #fff;
@@ -56,13 +56,41 @@ const CartInside = styled.div`
 const CartItem = styled.div`
     box-sizing:border-box;
     width: 100%;
-    height: 40px;
-    margin-top: 10px;
+    height: 50px;
+    margin-top: 5px;
+    padding: 10px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    text-align: left;
+    user-select: none;
+    border-radius: 5px;
+    transition: background-color .3s ease;
+
+    &:hover{
+      background-color: #40277a;
+    }
 `
+
+const SubmitButton = styled.button`
+  position: relative;
+  width: 80px;
+  heigth: 20px;
+  padding: 5px 8px;
+  margin-top:10px;
+  color: #fff;
+  background-color: #903f9e;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  outline: none;
+  cursor: pointer;
+  transition: background-color .3s ease;
+  transform: translateX(210px);
+
+  &:hover{
+    background-color: #602b69;
+  }
+  `
 
 const CartCounter = styled.span`
     font-family: 'Roboto', sans-serif;
@@ -112,10 +140,11 @@ export default function Cart({ count }) {
                 <CartItem key={product}>
                   <img src={DummySVG} style={{ width: "35px" }} />
                   <h4>{product.name}</h4>
-                  <p>{product.price}</p>
+                  <p>$ {product.price}</p>
                 </CartItem>
               )
             }) : null}
+            <SubmitButton>Submit</SubmitButton>
           </CartInside>
         ) : null}
       </div>

@@ -58,22 +58,22 @@ const DummyPrice = styled.p`
 `
 
 const AddButton = styled.button`
-width: 120px;
-heigth: 60px;
-padding: 10px;
-color: #fff;
-background-color: #903f9e;
-border: none;
-border-radius: 5px;
-font-size: 1rem;
-outline: none;
-cursor: pointer;
-transition: background-color .3s ease;
+  width: 120px;
+  heigth: 60px;
+  padding: 10px;
+  color: #fff;
+  background-color: #903f9e;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  outline: none;
+  cursor: pointer;
+  transition: background-color .3s ease;
 
-&:hover{
-  background-color: #602b69;
-}
-`
+  &:hover{
+    background-color: #602b69;
+  }
+  `
 const TextContainer = styled.div`
   margin: 20px 30px;
   

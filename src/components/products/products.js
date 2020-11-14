@@ -75,6 +75,7 @@ const DummyCard = styled.div`
   padding: 20px 10px;
   border-radius: 5px;
   outline: none;
+  transition: background-color .2s ease;
 
   &:hover{
     background-color: #47294d;
