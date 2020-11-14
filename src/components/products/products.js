@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import styled from "styled-components"
 import "./products.css"
 import Cart from "../Cart/cart"
@@ -139,7 +139,7 @@ export default function Products() {
       }
       productsArray.push(newProduct)
       localStorage.dummies = JSON.stringify(productsArray)
-      setCount(1)
+      setCartChange(!cartChange)
     } else {
       const newProductsArray = JSON.parse(localStorage.dummies)
       if (newProductsArray.find(dummy => dummy.name === prod.name)) {
@@ -151,12 +151,19 @@ export default function Products() {
         }
         newProductsArray.push(newProduct)
         localStorage.dummies = JSON.stringify(newProductsArray)
-        setCount(count + 1)
+        setCartChange(!cartChange)
       }
     }
   }
+  const localData = JSON.parse(localStorage.getItem("dummies")) || {}
 
   const [count, setCount] = useState(null)
+  const [cartChange, setCartChange] = useState(false)
+
+  useEffect(() => {
+    setCount(localData.length)
+    console.log(localData.length)
+  }, [cartChange])
 
   const data = useStaticQuery(
     graphql`
