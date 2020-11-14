@@ -1,8 +1,9 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
 import { graphql } from "gatsby"
 import styled from "styled-components"
 import Header from "../components/Header"
 import DummySVG from "../components/products/dumy.svg"
+import Cart from "../components/Cart/cart"
 
 const PageContainer = styled.div`
   position: absolute;
@@ -86,17 +87,54 @@ export default function productTemplate({
 }) {
   const { markdownRemark } = data
   const { frontmatter, html } = markdownRemark
+
+  function handleAddToCart(prod) {
+    if (localStorage.getItem("dummies") === null) {
+      const productsArray = []
+      const newProduct = {
+        name: prod.name,
+        price: prod.price,
+      }
+      productsArray.push(newProduct)
+      localStorage.dummies = JSON.stringify(productsArray)
+      setCartChange(!cartChange)
+    } else {
+      const newProductsArray = JSON.parse(localStorage.dummies)
+      if (newProductsArray.find(dummy => dummy.name === prod.name)) {
+        alert("This dummy is already in cart")
+      } else {
+        const newProduct = {
+          name: prod.name,
+          price: prod.price,
+        }
+        newProductsArray.push(newProduct)
+        localStorage.dummies = JSON.stringify(newProductsArray)
+        setCartChange(!cartChange)
+      }
+    }
+  }
+  const localData = JSON.parse(localStorage.getItem("dummies")) || {}
+
+  const [count, setCount] = useState(null)
+  const [cartChange, setCartChange] = useState(false)
+
+  useEffect(() => {
+    setCount(localData.length)
+    console.log(localData.length)
+  }, [cartChange])
+
   return (
     <>
       <Header />
       <PageContainer>
+        <Cart count={count} />
         <DummyContainer>
           <SVGimg src={DummySVG} />
           <TextContainer>
             <DummyName>{frontmatter.name}</DummyName>
             <DummyExcerpt>{frontmatter.excerpt}</DummyExcerpt>
             <DummyPrice>$ {frontmatter.price}</DummyPrice>
-            <AddButton>Add to card</AddButton>
+            <AddButton onClick={() => handleAddToCart(frontmatter)}>Add to card</AddButton>
           </TextContainer>
           <div dangerouslySetInnerHTML={{ __html: html }} />
         </DummyContainer>

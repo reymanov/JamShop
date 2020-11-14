@@ -27,10 +27,15 @@ const CartIcon = styled.div`
     color: #fff;
     z-index: 10;
     cursor: pointer;
-    transition: transform .2s ease;
+    transition: all .2s ease;
 
     &:hover{
         transform: translateY(-5px);
+    }
+
+    @media(max-width: 900px){
+      top: 20px;
+      right: 0px;
     }
 `
 const CartInside = styled.div`
@@ -39,8 +44,8 @@ const CartInside = styled.div`
     top: 65px;
     right: 20px;
     z-index: 10;
-    width: 260px;
-    min-height: 160px;
+    width: 300px;
+    min-height: 80px;
     padding: 20px 20px;
     background-color: #2d1761;
     border-radius: 10px;
@@ -60,6 +65,7 @@ const CartItem = styled.div`
 `
 
 const CartCounter = styled.span`
+    font-family: 'Roboto', sans-serif;
     box-sizing: border-box;
     position: absolute;
     top: -7px;
@@ -72,7 +78,7 @@ const CartCounter = styled.span`
     font-weight: 600;
     text-align: center;
     color: #fff;
-    padding: 2px;
+    padding: 1px;
 `
 
 export default function Cart({ count }) {

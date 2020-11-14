@@ -73,7 +73,7 @@ const DummyCard = styled.div`
   flex-direction: column;
   box-sizing: border-box;
   padding: 20px 10px;
-  border: 3px grey solid;
+  border-radius: 5px;
   outline: none;
 
   &:hover{
@@ -162,7 +162,6 @@ export default function Products() {
 
   useEffect(() => {
     setCount(localData.length)
-    console.log(localData.length)
   }, [cartChange])
 
   const data = useStaticQuery(
