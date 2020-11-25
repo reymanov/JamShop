@@ -2,4 +2,6 @@
 
 ## Project outline
 
-Proof of concept build on gatsby with a basic e-shop functionality.
+Proof of concept build on Gatsby with a basic e-shop functionality,
+using GraphQL to dynamically render products and product pages.
+
